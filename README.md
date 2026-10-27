@@ -43,23 +43,45 @@ first launch, exactly as with `npx`.
 
 ## Build and install
 
+Fastest path — the artifact is already built and smoke-tested in this directory:
+
+```sh
+cd arch/deepseek-harness
+sudo pacman -U deepseek-harness-0.2.1rc.4-1-x86_64.pkg.tar.zst
+```
+
+To build it yourself (or on another machine):
+
 ```sh
 cd arch/deepseek-harness
 
-# build + install (you will be asked for your sudo password by pacman)
+# build + install (pacman asks for your sudo password)
 makepkg -si
 
-# or build only:
+# or build only: leaves the .pkg.tar.zst in this directory
 makepkg
 ```
 
-Requirements: `base-devel`, `nodejs`, `npm` and `pnpm` (the PKGBUILD declares
-`nodejs`/`pnpm` as runtime dependencies and `npm` as a build dependency). The build
-resolves the npm dependency closure from the public registry, so it needs network
-access. Expect about two minutes and ~1 GB of scratch space (`src/`), which you can
-delete afterwards with `rm -rf src pkg`. The installed tree is ~667 MiB, dominated by
-the bundled LibreOfficeKit WASM runtime (~146 MB), per-package TypeScript sources, and
-the cross-platform native prebuilds that upstream packages ship.
+Either path pulls `nodejs` and `pnpm` from the repositories; building also needs
+`base-devel` (for `makepkg`/`fakeroot`) and `npm` (`makedepends`). The build resolves
+the npm dependency closure from the public registry, so it needs network access.
+Expect about two minutes and ~1 GB of scratch space (`src/`), which you can delete
+afterwards with `rm -rf src pkg`. The installed tree is ~667 MiB, dominated by the
+bundled LibreOfficeKit WASM runtime (~146 MB), per-package TypeScript sources, and the
+cross-platform native prebuilds that upstream packages ship.
+
+Installing does not start anything. Check the result, then start the UI:
+
+```sh
+pacman -Q deepseek-harness   # deepseek-harness 0.2.1rc.4-1
+dsh --version                # 0.2.1-rc.4
+dsh web                      # http://127.0.0.1:3080
+```
+
+If an `npx`-started `dsh web` is already holding port 3080 (as in this workspace),
+stop it first — or run the packaged one on another port with
+`dsh web --port 8080` — otherwise the bind fails. Uninstall with
+`sudo pacman -R deepseek-harness`; your data under `~/.dsh` is left in place.
 
 ### Verify without installing
 
