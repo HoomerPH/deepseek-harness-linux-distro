@@ -1,0 +1,24 @@
+post_install() {
+  cat <<'EOF'
+DeepSeek Harness (dsh) is installed.
+
+  Start the Web UI:        dsh web
+  One-shot task:           dsh --profile headless "run the tests"
+  Manage profile plugins:  dsh plugin --profile web add <package>
+  Data and profiles:       ${DSH_HOME:-~/.dsh} (created on first run)
+
+Optional Web UI as a user service (loopback only, port 3080):
+
+  systemctl --user daemon-reload
+  systemctl --user enable --now deepseek-harness-web.service
+  journalctl --user -u deepseek-harness-web.service -f
+
+The service prints the authenticated URL on startup. Model credentials are not
+bundled; configure a provider on first launch. Removing this package does not
+touch ${DSH_HOME:-~/.dsh}.
+EOF
+}
+
+post_upgrade() {
+  post_install
+}

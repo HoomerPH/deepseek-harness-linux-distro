@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=DeepSeek Harness
+GenericName=AI Agent Harness
+Comment=Open-source agent harness from DeepSeek
+Exec=/usr/bin/dsh web
+Icon=deepseek-harness
+Terminal=true
+Categories=Development;
+Keywords=deepseek;ai;agent;harness;llm;
+StartupNotify=false

@@ -1,0 +1,27 @@
+pkgbase = deepseek-harness
+	pkgdesc = Open-source agent harness from DeepSeek: CLI and Web UI
+	pkgver = 0.2.1rc.4
+	pkgrel = 1
+	url = https://github.com/deepseek-ai/deepseek-harness
+	install = deepseek-harness.install
+	arch = x86_64
+	arch = aarch64
+	license = MIT
+	makedepends = npm
+	depends = nodejs
+	depends = pnpm
+	conflicts = deepseek-harness-bin
+	conflicts = deepseek-harness-git
+	conflicts = dsh
+	options = !strip
+	options = !debug
+	source = dsh-0.2.1-rc.4.tgz::https://registry.npmjs.org/@deepseek-ai/dsh/-/dsh-0.2.1-rc.4.tgz
+	source = deepseek-harness.svg
+	source = deepseek-harness-web.service
+	source = deepseek-harness.desktop
+	sha256sums = 1fddead34d3c943b7a4eed1d614e14fa19925803455e28c5141645caf4b02d13
+	sha256sums = 0458ed5e4825846a6560e90d3e4de767cd75842f7eb53539dc87a5db380d9146
+	sha256sums = 62610d7a259aca07d2c951bcc47dc9802c4b1599735504450d0f4bf2b65af24e
+	sha256sums = e4d258438364345f5bebf8acb90fef5d20df30a270eae958ca5f72a00e88fe50
+
+pkgname = deepseek-harness

@@ -1,0 +1,13 @@
+[Unit]
+Description=DeepSeek Harness Web UI
+Documentation=https://github.com/deepseek-ai/deepseek-harness
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/dsh web --no-open
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
