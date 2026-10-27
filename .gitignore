@@ -5,3 +5,6 @@ src/
 *.pkg.tar.xz
 *.pkg.tar.gz
 dsh-*.tgz
+
+# KDE folder metadata (not part of the package)
+.directory
