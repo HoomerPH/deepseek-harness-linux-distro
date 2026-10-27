@@ -17,30 +17,6 @@ Web UI**, which upstream supports on Linux through npm.
 | Every `@deepseek-ai/dsh-*` package | `license: MIT` (a few bundled third-party helpers carry their own licenses: `@deepseek-ai/libreoffice-kit` MPL-2.0, `@deepseek-ai/node-addon-system` BSD-3-Clause) |
 | License disclosure | repo [`THIRD_PARTY_NOTICES.md`](https://github.com/deepseek-ai/deepseek-harness/blob/master/THIRD_PARTY_NOTICES.md) |
 
-## Why a package at all?
-
-Upstream and the official site offer the **desktop app for Windows and macOS only**;
-there is no Linux desktop artifact. But the harness itself is a Node.js application:
-`npx @deepseek-ai/dsh web` already runs on Arch (this session's Web UI does exactly
-that, on CachyOS). What is missing is a normal system installation — a `/usr/bin/dsh`,
-an uninstallable pacman package, a launcher and a user service instead of an npx cache
-directory that disappears.
-
-This package fills that gap:
-
-```text
-/usr/bin/dsh                                    -> /usr/lib/deepseek-harness/node_modules/.bin/dsh
-/usr/lib/deepseek-harness/node_modules/          full npm dependency closure (incl. native prebuilds)
-/usr/share/licenses/deepseek-harness/LICENSE     MIT
-/usr/share/doc/deepseek-harness/README.md        upstream CLI README
-/usr/share/applications/deepseek-harness.desktop launcher for "dsh web"
-/usr/share/icons/hicolor/scalable/apps/deepseek-harness.svg
-/usr/lib/systemd/user/deepseek-harness-web.service   optional user service, loopback:3080
-```
-
-It does **not** bundle models or credentials: `~/.dsh` (or `$DSH_HOME`) is created on
-first launch, exactly as with `npx`.
-
 ## Build and install
 
 Fastest path — the artifact is already built and smoke-tested in this directory:
@@ -82,6 +58,18 @@ If an `npx`-started `dsh web` is already holding port 3080 (as in this workspace
 stop it first — or run the packaged one on another port with
 `dsh web --port 8080` — otherwise the bind fails. Uninstall with
 `sudo pacman -R deepseek-harness`; your data under `~/.dsh` is left in place.
+
+### What gets installed
+
+```text
+/usr/bin/dsh                                    -> /usr/lib/deepseek-harness/node_modules/.bin/dsh
+/usr/lib/deepseek-harness/node_modules/          full npm dependency closure (incl. native prebuilds)
+/usr/share/licenses/deepseek-harness/LICENSE     MIT
+/usr/share/doc/deepseek-harness/README.md        upstream CLI README
+/usr/share/applications/deepseek-harness.desktop launcher for "dsh web"
+/usr/share/icons/hicolor/scalable/apps/deepseek-harness.svg
+/usr/lib/systemd/user/deepseek-harness-web.service   optional user service, loopback:3080
+```
 
 ### Verify without installing
 
